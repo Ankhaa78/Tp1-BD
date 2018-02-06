@@ -7,11 +7,9 @@ package tp1;
 
 /**
  *
- * @author mndus
+ * @author razan
  */
-public class Image {
-    int dimX;
-    int dimY;
-    int resol;
-    Pixel [][] _matrice;
+public interface Pixel {
+    void eclaircir(int valeur);
+    void noircir(int valeur);
 }
