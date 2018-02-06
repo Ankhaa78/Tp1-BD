@@ -7,11 +7,8 @@ package tp1;
 
 /**
  *
- * @author mndus
+ * @author joel_
  */
-public class Image {
-    int dimX;
-    int dimY;
-    int resol;
-    Pixel [][] _matrice;
+class Matrice {
+    
 }
