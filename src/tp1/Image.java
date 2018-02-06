@@ -10,5 +10,8 @@ package tp1;
  * @author mndus
  */
 public class Image {
-    
+    int dimX;
+    int dimY;
+    int resol;
+    Pixel [][] _matrice;
 }
