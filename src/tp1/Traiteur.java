@@ -31,9 +31,16 @@ public class Traiteur {
         
     }
     
-    public Image rotate(Image i){
+    public void rotate(Image i){
+        int max = i.getDimX() - 1;
+        Pixel [][] temp = new Pixel[i.getDimY()][i.getDimX()];
         
-        
-        return null;     
+        for (int j = 0; j < i.getDimX();j++){
+            for (int k = 0; k < i.getDimY(); k++){
+                temp[j][k] = i.getMatrice()[k][ max - j];
+            }
+        }
+        i.setMatrice(temp);
+             
     }
 }
