@@ -10,10 +10,20 @@ package tp1;
  * @author mndus
  */
 public class Image {
-    int dimX;
-    int dimY;
-    int resol;
-    Pixel [][] _matrice;
+    private int dimX;
+    private int dimY;
+    private int resol;
+    private Pixel [][] _matrice;
+
+    public Image(int dimX, int dimY, int resol, Pixel[][] _matrice) {
+        this.dimX = dimX;
+        this.dimY = dimY;
+        this.resol = resol;
+        this._matrice = _matrice;
+    }
+
+    public Image() {
+    }
 
     public void setDimX(int dimX) {
         this.dimX = dimX;
