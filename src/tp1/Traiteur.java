@@ -12,15 +12,34 @@ package tp1;
  */
 public class Traiteur {
     
+    /**
+     *
+     * @param i1
+     * @param i2
+     */
     public void copy(Image i1, Image i2){
         
     }
     
-    public Matrice extract(Image i, int p1, int c1, int p2, int c2){
+    /**
+     *
+     * @param i
+     * @param p1
+     * @param c1
+     * @param p2
+     * @param c2
+     * @return
+     */
+    public Image extract(Image i, int p1, int c1, int p2, int c2){
         
         return null;
     }
     
+    /**
+     *
+     * @param i
+     * @return
+     */
     public Image reduce(Image i){
         int x,y;
         
@@ -66,17 +85,25 @@ public class Traiteur {
                              i.getMatrice()[2*j+1][2*k], i.getMatrice()[2*j+1][2*k+1]);
                 }    
             }
-        }
-        
-        
+        }    
         return new Image(x,y,i.getResol(),temp);
     }
     
+    /**
+     *
+     * @param i1
+     * @param i2
+     */
     public void compare(Image i1, Image i2){
         
         
     }
     
+    /**
+     *
+     * @param i
+     * @return
+     */
     public Image rotate(Image i){
         int max = i.getDimX() - 1;
         Pixel [][] temp = new Pixel[i.getDimX()][i.getDimY()];
@@ -88,6 +115,6 @@ public class Traiteur {
         }
         return new Image(i.getDimX(),i.getDimY(),i.getResol(),temp); 
     }
-    
+ 
    
 }

@@ -38,6 +38,7 @@ public class TP1 {
             }
             System.out.println();
         }
+        
         System.out.println("Matrice pivotée");
         for(int i=0;i<dimX;i++){
             for(int j=0;j<dimY;j++){
@@ -45,6 +46,7 @@ public class TP1 {
             }
             System.out.println();
         }
+        
         System.out.println("Matrice reduite");
         for(int i=0;i< im3.getDimY();i++){
             for(int j=0;j<im3.getDimX();j++){
@@ -61,6 +63,7 @@ public class TP1 {
                 k++;
             }
         }
+         
         im = new Image(dimX, dimY, 255, m);
         im2 = t.rotate(im);
         im3 = t.reduce(im); 
@@ -72,6 +75,7 @@ public class TP1 {
             }
             System.out.println();
         }
+        
         System.out.println("Matrice pivotée");
         for(int i=0;i<dimX;i++){
             for(int j=0;j<dimY;j++){
@@ -79,6 +83,7 @@ public class TP1 {
             }
             System.out.println();
         }
+        
         System.out.println("Matrice reduite");
         for(int i=0;i<im3.getDimY();i++){
             for(int j=0;j<im3.getDimX();j++){
