@@ -1,7 +1,10 @@
 package tp1;
 
+import java.io.BufferedReader;
 import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.BreakIterator;
 import java.util.Scanner;
@@ -15,26 +18,33 @@ import java.util.Scanner;
  *
  * @author joel_
  */
-public class Lecteur {
-     
+public class Lecteur {     
+    
     /**
      *
      * @param i - une image
      * @param f - un fichier
+     * (Precondition :)
+     * (Postcondition :)
+     * @throws java.io.FileNotFoundException
      */
-    public void read(Image i, File f){
-        
+    public void read(Image i, File f) throws FileNotFoundException, IOException{        
         //Doit connaitre le type de pixel
-        Pixel [][] temp;
-        Scanner sc = new Scanner (f.getPath());
+        Pixel [][] temp = null;
+        Scanner sc = new Scanner(f);
+
         String pixelType;
+           
+//        pixelType = br.readLine();
+//        i.setDimX(br.read());
+//        i.setDimY(br.read());
+//        i.setResol(br.read());
 
         pixelType = sc.nextLine();
         i.setDimX(sc.nextInt());
         i.setDimY(sc.nextInt());
-        i.setResol(sc.nextInt());
-        
-        if (pixelType == "P3"){
+        i.setResol(sc.nextInt());                
+        if ("P3".equals(pixelType)){
             temp = new P3 [i.getDimX()][i.getDimY()];
             for (int x = 0; x < i.getDimX(); x++){
                 for (int y = 0; y < i.getDimY(); y++) {
@@ -42,7 +52,7 @@ public class Lecteur {
                 }            
             }     
         }      
-        else if (pixelType == "P2"){
+        else if ("P2".equals(pixelType)){
             temp = new P2 [i.getDimX()][i.getDimY()]; 
             for (int x = 0; x < i.getDimX(); x++){
                 for (int y = 0; y < i.getDimY(); y++) {
@@ -50,6 +60,8 @@ public class Lecteur {
                 }            
             }
         }
+       
+        i.setMatrice(temp);
         sc.close();
     }
     
@@ -57,16 +69,23 @@ public class Lecteur {
      *
      * @param f - un fichier
      * @param i - une image
+     * (Precondition :)
+     * (Postcondition :)
      * @throws IOException
      */
-    public void write(File f, Image i) throws IOException{
+    public void write(File f, Image i) throws IOException{       
+        String txt = null; 
+        //Doit verifier quel type de pixel        
+        String pixelType;
         
-        String txt; 
-        //Doit verifier quel type de pixel 
-        //Si P2
+        pixelType = i.getMatrice().getClass().getName();
+        pixelType = pixelType.substring(7, 9);
+        
+        if ("P2".equals(pixelType))
             txt = P2toString(i);
-        //Si P3
-            // txt = P2toString(i);       
+        else if("P3".equals(pixelType))
+            txt = P2toString(i);       
+        
         FileWriter fw = new FileWriter(f.getAbsolutePath()) ;
         
         BreakIterator boundary = BreakIterator.getLineInstance();        
@@ -81,12 +100,16 @@ public class Lecteur {
         String r = Integer.toString(i.getResol());
        // fw.write(i.getPixelType);
         //fw.write("\r\n");
+        fw.write(pixelType);
+        fw.write ("\r\n");        
         fw.write(x);
         fw.write(" ");
         fw.write(y);
         fw.write ("\r\n");
         fw.write(r);    
         fw.write("\r\n");
+        System.out.printf("%-3s",pixelType,toString());
+        System.out.println();
         System.out.printf("%-3s",i.getDimX(),toString());
         System.out.println();
         System.out.printf("%-3s",i.getDimY(),toString());
@@ -94,9 +117,9 @@ public class Lecteur {
         System.out.printf("%-3s",i.getResol(),toString());           
         System.out.println();
 
-
         while (BreakIterator.DONE != end){
-            String word = txt.substring(start,end);           
+            String word;           
+            word = txt.substring(start,end);
             if ((lineLenght + word.length()) > maxLenght){
                 
                fw.write("\r\n");
@@ -105,7 +128,7 @@ public class Lecteur {
                lineLenght = word.length();
             }    
             System.out.printf(word);
-           fw.write(word);
+            fw.write(word);
            
             lineLenght+= word.length();
             start = end;
@@ -117,10 +140,11 @@ public class Lecteur {
     /**
      *
      * @param i - une image
+     * (Precondition :)
+     * (Postcondition :)
      * @return
      */
-    public String P2toString(Image i){
-        
+    public String P2toString(Image i){       
         String str = "";
         Pixel matrix [][] = i.getMatrice();
         
@@ -130,11 +154,12 @@ public class Lecteur {
             }
         }
         return str;
-    }
-    
+    }    
     /**
      *
      * @param i
+     * (Precondition :)
+     * (Postcondition :)
      * @return
      */
     public String P3toString(Image i){        
@@ -147,8 +172,7 @@ public class Lecteur {
             }
         }
         return str;
-    }
-    
+    }    
     /**
      *
      * @param arg
@@ -183,7 +207,20 @@ public class Lecteur {
         
         File fichier;
         fichier = new File ("test.txt");
-        w.write(fichier, im);      
+        w.write(fichier, im);       
+
         
+        Image im2 = new Image();      
+        File fichier2 = new File("Sherbrooke_Frontenac_nuit.ppm");
+        
+        if (fichier2.canRead())
+            System.out.printf("Ouvert");
+        else
+            System.out.printf("Fermer");
+ 
+        w.read(im2, fichier2);
+        
+        File fichier3 = new File ("test2.txt");
+        w.write(fichier3, im2);
     }
 }
