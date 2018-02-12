@@ -40,28 +40,13 @@ public class Traiteur{
         {
             int newDimX = p2 - p1;
             int newDimY = c2 - c1;
-            Pixel[][] extracted = null;
-            if ("P2".equals(i.getType()))
-            {
-                extracted = new P2[newDimX][newDimY];
-                for(int j = c1; j < c2; j++ )
-                    for(int k = p1; k < p2; k++)
-                    {
-                        extracted = i.getMatrice()[j][k];
-                    }
-            }
-            
-             if ("3".equals(i.getType()))
-            {
-                extracted = new P3[newDimX][newDimY];
-                for(int j = c1; j < c2; j++ )
-                    for(int k = p1; k < p2; k++)
-                    {
-                        
-                    }
-            }
-            
-            return null;
+            Pixel[][] temp = new Pixel[newDimX][newDimY];
+            for(int j = 0; j < newDimY; j++ )
+                for(int k = 0; k < newDimX; k++)
+                {
+                    temp[j][k] = i.getMatrice()[j + p1][k + c1];
+                }
+            return new Image(newDimX, newDimY, i.getResol(), temp);
         }
         return null;
     }
@@ -129,7 +114,7 @@ public class Traiteur{
             for(int i = 0; i < i1.getDimY(); i++)
                 for(int j = 0; j < i1.getDimX(); j++)
                 {
-                    if(i1.at(i,j) != i2.at(i,j))
+                    if(i1.getMatrice()[i][j] != i2.getMatrice()[i][j])
                     {
                         return false;
                     }

@@ -11,7 +11,7 @@ package tp1;
  */
 public interface Pixel {
     void eclaircir(int valeur);
-    void noircir(int valeur);
+    void noircir(int valeur, int resol);
     public Pixel fusion(Pixel p1);
     public Pixel fusion(Pixel p1, Pixel p2, Pixel p3);
     

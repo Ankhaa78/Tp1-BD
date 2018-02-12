@@ -34,8 +34,8 @@ public class P2 implements Pixel {
     }
 
     @Override
-    public void noircir(int valeur) {
-        gray = VerifyPixel.verifyNoircir(gray, valeur);
+    public void noircir(int valeur, int resol) {
+        gray = VerifyPixel.verifyNoircir(gray, valeur, resol);
     }
     @Override
     public Pixel fusion(Pixel p1){

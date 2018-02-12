@@ -52,10 +52,10 @@ public class P3 implements Pixel {
     }
 
     @Override
-    public void noircir(int valeur) {
-        red = VerifyPixel.verifyNoircir(red, valeur);
-        green = VerifyPixel.verifyNoircir(green, valeur);
-        blue = VerifyPixel.verifyNoircir(blue, valeur);
+    public void noircir(int valeur, int resol) {
+        red = VerifyPixel.verifyNoircir(red, valeur, resol);
+        green = VerifyPixel.verifyNoircir(green, valeur, resol);
+        blue = VerifyPixel.verifyNoircir(blue, valeur, resol);
     }
     
     @Override
