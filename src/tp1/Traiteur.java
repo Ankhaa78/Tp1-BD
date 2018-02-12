@@ -41,7 +41,7 @@ public class Traiteur {
         }
         
         //creer la nouvelle matrice
-        Pixel [][] temp = new Pixel[x][y];
+        Pixel [][] temp = new Pixel[y][x];
         
         for(int j = 0; j < y; j++){
             for(int k = 0; k < x; k++){
@@ -64,8 +64,7 @@ public class Traiteur {
                 else{
                      temp [j][k] =  i.getMatrice()[2*j][2*k].fusion(i.getMatrice()[2*j][2*k + 1],
                              i.getMatrice()[2*j+1][2*k], i.getMatrice()[2*j+1][2*k+1]);
-                }
-                   
+                }    
             }
         }
         
