@@ -1,5 +1,7 @@
 package tp1;
 
+import java.util.Comparator;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,14 +12,59 @@ package tp1;
  *
  * @author joel_
  */
-public class Traiteur {
+public class Traiteur{
     
+    /**
+     *
+     * @param i1
+     * @param i2
+     */
     public void copy(Image i1, Image i2){
-        
+            i2.setMatrice(i1.getMatrice().clone());
+            i2.setResol(i1.getResol());
+            i2.setDimX(i1.getDimX());
+            i2.setDimY(i1.getDimY());
     }
     
-    public Matrice extract(Image i, int p1, int c1, int p2, int c2){
-        
+    /**
+     *
+     * @param i 
+     * @param p1
+     * @param c1
+     * @param p2
+     * @param c2
+     * @return
+     * 
+     * Precondition = 
+     */
+    public Image extract(Image i, int p1, int c1, int p2, int c2){
+        if(p1 < i.getDimX() && p2 < i.getDimX() && c1 < i.getDimY() && c2 < i.getDimY() && c1 < c2 && p1 < p2)
+        {
+            int newDimX = p2 - p1;
+            int newDimY = c2 - c1;
+            Pixel[][] extracted = null;
+            if ("P2".equals(i.getType()))
+            {
+                extracted = new P2[newDimX][newDimY];
+                for(int j = c1; j < c2; j++ )
+                    for(int k = p1; k < p2; k++)
+                    {
+                        extracted = i.getMatrice()[j][k];
+                    }
+            }
+            
+             if ("3".equals(i.getType()))
+            {
+                extracted = new P3[newDimX][newDimY];
+                for(int j = c1; j < c2; j++ )
+                    for(int k = p1; k < p2; k++)
+                    {
+                        
+                    }
+            }
+            
+            return null;
+        }
         return null;
     }
     
@@ -72,9 +119,26 @@ public class Traiteur {
         return new Image(x,y,i.getResol(),temp);
     }
     
-    public void compare(Image i1, Image i2){
-        
-        
+    /**
+     *
+     * @param i1
+     * @param i2
+     * @return
+     */
+    public boolean compare(Image i1, Image i2){
+        if(i1.getDimX() == i2.getDimX() && i1.getDimY() == i2.getDimY())
+        {
+            for(int i = 0; i < i1.getDimY(); i++)
+                for(int j = 0; j < i1.getDimX(); j++)
+                {
+                    if(i1.at(i,j) != i2.at(i,j))
+                    {
+                        return false;
+                    }
+                }
+            return true;
+        }
+        return false;
     }
     
     public Image rotate(Image i){
