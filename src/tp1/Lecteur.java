@@ -1,9 +1,8 @@
 package tp1;
 
 
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.File;
+import java.util.Scanner;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -27,7 +26,7 @@ public class Lecteur {
     }
     
     public void write(File f, Image i){
-        
+     
     }
     
 }
