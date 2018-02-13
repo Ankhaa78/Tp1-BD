@@ -27,16 +27,12 @@ public class P2 implements Pixel {
         return gray;
     }
 
+    @Override
+    public Pixel eclaircir_noircir_pixel(int valeur, int resol) {
+        int g = Pixel.verifyPixel(gray, valeur, resol);
+        return new P2(g);
+    }
     
-    @Override
-    public void eclaircir(int valeur) {
-        gray = VerifyPixel.verifyEclaircir(gray, valeur);
-    }
-
-    @Override
-    public void noircir(int valeur, int resol) {
-        gray = VerifyPixel.verifyNoircir(gray, valeur, resol);
-    }
     @Override
     public Pixel fusion(Pixel p1){
         P2 pix = (P2)p1;
@@ -52,6 +48,7 @@ public class P2 implements Pixel {
         return new P2((this.getGray() + pix1.getGray() + pix2.getGray() + pix3.getGray())/4);
     }
     
+     @Override
      public String toString(){
         return this.getGray() + " ";
     }

@@ -38,9 +38,12 @@ public class Traiteur{
     public Image extract(Image i, int p1, int c1, int p2, int c2){
         if(p1 < i.getDimX() && p2 < i.getDimX() && c1 < i.getDimY() && c2 < i.getDimY() && c1 < c2 && p1 < p2)
         {
+            //On détermine les nouvelles 
             int newDimX = p2 - p1;
             int newDimY = c2 - c1;
+            //On crée un tableau temporaire
             Pixel[][] temp = new Pixel[newDimX][newDimY];
+            //On copie la partie d'image dans le tableau temporaire 
             for(int j = 0; j < newDimY; j++ )
                 for(int k = 0; k < newDimX; k++)
                 {
@@ -136,5 +139,14 @@ public class Traiteur{
         return new Image(i.getDimX(),i.getDimY(),i.getResol(),temp); 
     }
     
-   
+       public Image eclaircir_noircir(Image i, int valeur)
+    {
+        Pixel[][] temp = new Pixel[i.getDimY()][i.getDimX()];
+        for (int j = 0; j < i.getDimX();j++){
+            for (int k = 0; k < i.getDimY(); k++){
+                temp[k][j] = i.getMatrice()[k][j].eclaircir_noircir_pixel(valeur, i.getResol());
+            }
+        }
+        return new Image(i.getDimX(), i.getDimY(), i.getResol(), temp); 
+    }
 }
