@@ -35,6 +35,7 @@ public interface Pixel {
      */
     public Pixel fusion(Pixel p1, Pixel p2, Pixel p3);
     
+
     /**
      * Vérifie si le pixel descend sous 0 au dépasse la résolution et calcule sa nouvelle valeur (Sert à eclaircir_noircir_pixel)
      * @param base La valeur originale a vérifier
@@ -42,6 +43,7 @@ public interface Pixel {
      * @param resol La résolution maximale du pixel
      * @return Retourne le pixel modifier
      */
+
     public static int verifyPixel (int base, int valeur, int resol) {
         if ((base + valeur) <= 0) {
             return 0;

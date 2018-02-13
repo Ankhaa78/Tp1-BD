@@ -102,4 +102,17 @@ public class Image {
     public Pixel[][] getMatrice() {
         return _matrice;
     }
+    
+    @Override
+    public String toString(){
+        String txt = "";
+        
+        for (int k = 0; k<this.getDimY();k++){
+            for (int j = 0; j<this.getDimX();j++){
+                txt += this.getMatrice()[k][j].toString();
+           }
+        }
+        return txt;
+    }
+    
 }
