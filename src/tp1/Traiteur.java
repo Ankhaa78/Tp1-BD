@@ -13,9 +13,9 @@ package tp1;
 public class Traiteur{
     
     /**
-     *
-     * @param i1
-     * @param i2
+     * Copie l'image i1 dans l'image i2
+     * @param i1 Image à copier
+     * @param i2 Image dans laquelle copier
      */
     public void copy(Image i1, Image i2){
             i2.setMatrice(i1.getMatrice().clone());
@@ -26,14 +26,14 @@ public class Traiteur{
     
     /**
      *
-     * @param i
-     * @param p1
-     * @param c1
-     * @param p2
-     * @param c2
-     * @return
+     * @param i Image de laquelle il faut extraire
+     * @param p1 Position en X de départ
+     * @param c1 Position en y de départ
+     * @param p2 Position en X de fin
+     * @param c2 Position en X de fin
+     * @return Retourne l'image extraite (Null si la precondition n'est pas respectée)
      * 
-     * Precondition = 
+     * Precondition = p1 < i.getDimX() && p2 < i.getDimX() && c1 < i.getDimY() && c2 < i.getDimY() && c1 < c2 && p1 < p2
      */
     public Image extract(Image i, int p1, int c1, int p2, int c2){
         if(p1 < i.getDimX() && p2 < i.getDimX() && c1 < i.getDimY() && c2 < i.getDimY() && c1 < c2 && p1 < p2)
@@ -56,9 +56,9 @@ public class Traiteur{
    
     
     /**
-     *
-     * @param i
-     * @return
+     * Réduit une image de moitée
+     * @param i Image à réduire
+     * @return Retourne une image réduite
      */
     public Image reduce(Image i){
         int x,y;
@@ -110,15 +110,16 @@ public class Traiteur{
     }
     
     /**
-     *
-     * @param i1
-     * @param i2
-
-     * @return
+     * Compare deux Images
+     * @param i1 Image #1 à comparer
+     * @param i2 Image #2 à comparer
+     * @return Retourne True si les deux images sont pareilles et Faux si les deux images sont différentes
      */
     public boolean compare(Image i1, Image i2){
+        //Si les dimensions sont pareilles on continue
         if(i1.getDimX() == i2.getDimX() && i1.getDimY() == i2.getDimY())
         {
+            //Regarde pixel par pixel si ils sont pareils (Éjecte au premier pixel différent)
             for(int i = 0; i < i1.getDimY(); i++)
                 for(int j = 0; j < i1.getDimX(); j++)
                 {
@@ -131,12 +132,12 @@ public class Traiteur{
         }
         return false;
     }
-    
+
     
     /**
-     *
-     * @param i
-     * @return
+     * Tourne une image de 90° anti-horaire
+     * @param i Image à tourner
+     * @return REtourne l'image modifiée
      */
     public Image rotate(Image i){
         int max = i.getDimX() - 1;
@@ -151,7 +152,13 @@ public class Traiteur{
     }
 
     
-       public Image eclaircir_noircir(Image i, int valeur)
+    /**
+     * Éclaircis ou noircis une image 
+     * @param i L'image à modifier
+     * @param valeur La valeur de modification à appliquer à l'image ( Négatif = Noircir / Positif = Éclaircir )
+     * @return Retourne l'image modifiée
+     */
+    public Image eclaircir_noircir(Image i, int valeur)
     {
         Pixel[][] temp = new Pixel[i.getDimY()][i.getDimX()];
         for (int j = 0; j < i.getDimX();j++){

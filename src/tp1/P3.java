@@ -6,7 +6,10 @@
 package tp1;
 
 /**
- *
+ * Gère les 3 couleurs d'un pixel de type P3
+ * red Valeur du pixel Rouge
+ * green Valeur du pixel Vert
+ * blue Valeur du pixel Bleu
  * @author razan
  */
 public class P3 implements Pixel {
@@ -14,32 +17,68 @@ public class P3 implements Pixel {
     private int green;
     private int blue;
     
+     /**
+     * Constructeur sans paramètre
+     */
+    public P3() {
+    }
+    
+    /**
+     * Constructeur avec paramètre
+     * @param red Valeur du pixel Rouge
+     * @param green Valeur du pixel Vert
+     * @param blue Valeur du pixel Bleu
+     */
     public P3(int red, int green, int blue) {
         this.red = red;
         this.green = green;
         this.blue = blue;
     }
 
+    /**
+     * Set la valeur Rouge
+     * @param red Valeur pour le Rouge
+     */
     public void setRed(int red) {
         this.red = red;
     }
 
+    /**
+     * Set la valeur Vert
+     * @param green Valeur pour le Vert
+     */
     public void setGreen(int green) {
         this.green = green;
     }
 
+    /**
+     * Set la valeur Bleu
+     * @param blue Valeur pour le Bleu
+     */
     public void setBlue(int blue) {
         this.blue = blue;
     }
 
+    /**
+     * Obtenir la valeur rouge
+     * @return Retourne la teinte de rouge
+     */
     public int getRed() {
         return red;
     }
 
+    /**
+     * Obtenir la valeur vert
+     * @return Retourne la teinte de vert
+     */
     public int getGreen() {
         return green;
     }
 
+    /**
+     * Obtenir la valeur bleu
+     * @return Retourne la teinte de bleu
+     */
     public int getBlue() {
         return blue;
     }
@@ -74,6 +113,10 @@ public class P3 implements Pixel {
         return new P3(r, g, b);
     }
 
+    /**
+     * Gère l'affichage du pixel (Valeur de Rouge, Vert et Bleu)
+     * @return Retourne une string contenant les valeurs du pixel
+     */
     @Override
     public String toString(){
         return this.getRed() + " " + this.getGreen() +" "+ this.getBlue() + " ";

@@ -6,7 +6,11 @@
 package tp1;
 
 /**
- *
+ * Gère une matrice de Pixel
+ * dimX Dimensions de la matrice en X
+ * dimY Dimensions de la matrice en Y
+ * resol Résolution des pixels de la matrice
+ * _matrice Matrice de Pixel
  * @author mndus
  */
 public class Image {
@@ -16,11 +20,17 @@ public class Image {
     private Pixel [][] _matrice;
 
     /**
-     *
-     * @param dimX la dimension en X (nombre de ligne)
-     * @param dimY la dimension en Y (nombre de colonnes)
-     * @param resol la résolution de l'image
-     * @param _matrice tableau de pixel représentant l'image
+     * Constructeur sans paramètres
+    */
+    public Image() {
+    }
+    
+    /**
+     * Constructeur avec paramètres
+     * @param dimX Dimension en X
+     * @param dimY Dimension en Y
+     * @param resol Résolution de l'image
+     * @param _matrice Matrice de pixel
      */
     public Image(int dimX, int dimY, int resol, Pixel[][] _matrice) {
         this.dimX = dimX;
@@ -30,70 +40,64 @@ public class Image {
     }
 
     /**
-     *  constructeur sans parametres
-     */
-    public Image() {
-    }
-
-    /**
-     *
-     * @param dimX la dimension en X (nombre de ligne)
+     * Set la valeur de la dimension en X
+     * @param dimX Valeur de la dimension en X
      */
     public void setDimX(int dimX) {
         this.dimX = dimX;
     }
 
     /**
-     *
-     * @param dimY la dimension en Y (nombre de colonnes)
+     * Set la valeur de la dimension en Y
+     * @param dimY Valeur de la dimension en Y
      */
     public void setDimY(int dimY) {
         this.dimY = dimY;
     }
 
     /**
-     *
-     * @param resol la résolution de l'image
+     * Set la valeur de la résolution de l'image
+     * @param resol Valeur de la résolution de l'image
      */
     public void setResol(int resol) {
         this.resol = resol;
     }
 
     /**
-     *
-     * @param _matrice tableau de pixel représentant l'image
+     * Set la matrice de pixel
+     * @param _matrice Une Matrice de Pixel
      */
     public void setMatrice(Pixel[][] _matrice) {
         this._matrice = _matrice;
     }
 
     /**
-     *
-     * @return la dimension en X (nombre de ligne)
+     * Obtenir la dimension en X
+     * @return Retourne la dimension  en X
      */
     public int getDimX() {
         return dimX;
     }
 
     /**
-     *
-     * @return la dimension en Y (nombre de colonnes)
+     * Obtenir la dimension en Y
+     * @return Retourne la dimension  en Y
      */
     public int getDimY() {
         return dimY;
     }
 
     /**
-     *
-     * @return la résolution de l'image
+     * Obtenir la résolution de l'image
+     * @return Retourne la résolution de l'image
      */
     public int getResol() {
         return resol;
     }
 
     /**
-     *
-     * @return tableau de pixel représentant l'image
+     * Obtenir la matrice de pixels
+     * @return Retourne la matrice de pixels
      */
     public Pixel[][] getMatrice() {
         return _matrice;
