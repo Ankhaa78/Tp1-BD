@@ -18,6 +18,7 @@ import java.util.Scanner;
  */
 public class Lecteur {     
     
+
     /**
      *
      * @param img - une image

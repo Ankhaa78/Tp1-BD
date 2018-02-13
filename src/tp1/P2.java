@@ -6,37 +6,38 @@
 package tp1;
 
 /**
- *
+ * Gère les les teintes de gris d'un pixel de type P2
+ * gray Valeur du pixel Gris
  * @author razan
  */
 public class P2 implements Pixel {
      private int gray;
 
     /**
-     *  constructeur sans parametres
+     * Constructeur sans paramètre
      */
     public P2() {
     }
 
     /**
-     *
-     * @param gray valeur de la teinte de gris
+     * Constructeur avec paramètre
+     * @param gray Valeur du pixel Gris
      */
     public P2(int gray) {
         this.gray = gray;
     }
 
     /**
-     *
-     * @param gray valeur de la teinte de gris
+     * Set la valeur Gris
+     * @param gray Valeur pour le Gris
      */
     public void setGray(int gray) {
         this.gray = gray;
     }
 
     /**
-     *
-     * @return valeur de la teinte de gris
+     * Obtenir la valeur Gris
+     * @return Retourne la teinte de Gris
      */
     public int getGray() {
         return gray;
@@ -78,7 +79,11 @@ public class P2 implements Pixel {
         return new P2((this.getGray() + pix1.getGray() + pix2.getGray() + pix3.getGray())/4);
     }
     
-     @Override
+    /**
+     * Gère l'affichage du pixel (Valeur de Gris)
+     * @return Retourne une string contenant les valeurs du pixel
+     */
+    @Override
      public String toString(){
         return this.getGray() + " ";
     }
