@@ -1,8 +1,6 @@
 package tp1;
 
-import java.io.BufferedReader;
 import java.io.FileWriter;
-import java.io.FileReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -22,84 +20,76 @@ public class Lecteur {
     
     /**
      *
-     * @param i - une image
+     * @param img - une image
      * @param f - un fichier
      * (Precondition :)
      * (Postcondition :)
      * @throws java.io.FileNotFoundException
      */
-    public void read(Image i, File f) throws FileNotFoundException, IOException{        
-        //Doit connaitre le type de pixel
+    public void read(Image img, File f) throws FileNotFoundException, IOException{        
         Pixel [][] temp = null;
         Scanner sc = new Scanner(f);
-
-        String pixelType;
-           
-//        pixelType = br.readLine();
-//        i.setDimX(br.read());
-//        i.setDimY(br.read());
-//        i.setResol(br.read());
+        String pixelType;           
 
         pixelType = sc.nextLine();
-        i.setDimX(sc.nextInt());
-        i.setDimY(sc.nextInt());
-        i.setResol(sc.nextInt());                
+        img.setDimX(sc.nextInt());
+        img.setDimY(sc.nextInt());
+        img.setResol(sc.nextInt());  
+        
         if ("P3".equals(pixelType)){
-            temp = new P3 [i.getDimX()][i.getDimY()];
-            for (int x = 0; x < i.getDimX(); x++){
-                for (int y = 0; y < i.getDimY(); y++) {
+            temp = new P3 [img.getDimX()][img.getDimY()];
+            for (int x = 0; x < img.getDimX(); x++){
+                for (int y = 0; y < img.getDimY(); y++) {
                     temp[x][y] = new P3(sc.nextInt(),sc.nextInt(),sc.nextInt());                    
                 }            
             }     
         }      
         else if ("P2".equals(pixelType)){
-            temp = new P2 [i.getDimX()][i.getDimY()]; 
-            for (int x = 0; x < i.getDimX(); x++){
-                for (int y = 0; y < i.getDimY(); y++) {
+            temp = new P2 [img.getDimX()][img.getDimY()]; 
+            for (int x = 0; x < img.getDimX(); x++){
+                for (int y = 0; y < img.getDimY(); y++) {
                     temp[x][y] = new P2(sc.nextInt());                    
                 }            
             }
         }
-       
-        i.setMatrice(temp);
+        
+        img.setMatrice(temp);
         sc.close();
     }
     
     /**
      *
      * @param f - un fichier
-     * @param i - une image
+     * @param img - une image
      * (Precondition :)
      * (Postcondition :)
      * @throws IOException
      */
-    public void write(File f, Image i) throws IOException{       
-        String txt = null; 
-        //Doit verifier quel type de pixel        
+    public void write(File f, Image img) throws IOException{       
+        String txt = null;    
         String pixelType;
         
-        pixelType = i.getMatrice().getClass().getName();
+        pixelType = img.getMatrice().getClass().getName();
         pixelType = pixelType.substring(7, 9);
         
         if ("P2".equals(pixelType))
-            txt = P2toString(i);
+            txt = P2toString(img);
         else if("P3".equals(pixelType))
-            txt = P2toString(i);       
+            txt = P3toString(img);       
         
         FileWriter fw = new FileWriter(f.getAbsolutePath()) ;
+        BreakIterator boundary = BreakIterator.getLineInstance(); 
         
-        BreakIterator boundary = BreakIterator.getLineInstance();        
         boundary.setText(txt);             
         int start = boundary.first();
         int end = boundary.next();  
         int lineLenght = 0; //Longueur de la ligne
         int maxLenght = 70; //Longueur maximum  des lignes        
         
-        String x = Integer.toString(i.getDimX());
-        String y = Integer.toString(i.getDimY());
-        String r = Integer.toString(i.getResol());
-       // fw.write(i.getPixelType);
-        //fw.write("\r\n");
+        String x = Integer.toString(img.getDimX());
+        String y = Integer.toString(img.getDimY());
+        String r = Integer.toString(img.getResol());
+
         fw.write(pixelType);
         fw.write ("\r\n");        
         fw.write(x);
@@ -108,28 +98,17 @@ public class Lecteur {
         fw.write ("\r\n");
         fw.write(r);    
         fw.write("\r\n");
-        System.out.printf("%-3s",pixelType,toString());
-        System.out.println();
-        System.out.printf("%-3s",i.getDimX(),toString());
-        System.out.println();
-        System.out.printf("%-3s",i.getDimY(),toString());
-        System.out.println();
-        System.out.printf("%-3s",i.getResol(),toString());           
-        System.out.println();
 
         while (BreakIterator.DONE != end){
             String word;           
             word = txt.substring(start,end);
-            if ((lineLenght + word.length()) > maxLenght){
-                
-               fw.write("\r\n");
-               System.out.println();
-               
+            
+            if ((lineLenght + word.length()) > maxLenght){             
+               fw.write("\r\n");        
                lineLenght = word.length();
-            }    
-            System.out.printf(word);
+            }
+            
             fw.write(word);
-           
             lineLenght+= word.length();
             start = end;
             end = boundary.next();
@@ -139,17 +118,17 @@ public class Lecteur {
     
     /**
      *
-     * @param i - une image
+     * @param img - une image
      * (Precondition :)
      * (Postcondition :)
      * @return
      */
-    public String P2toString(Image i){       
+    public String P2toString(Image img){       
         String str = "";
-        Pixel matrix [][] = i.getMatrice();
+        Pixel matrix [][] = img.getMatrice();
         
-        for (int k = 0; k<i.getDimX();k++){
-            for (int j = 0; j<i.getDimY();j++){
+        for (int k = 0; k<img.getDimX();k++){
+            for (int j = 0; j<img.getDimY();j++){
                 str += String.valueOf(matrix[k][j]);
             }
         }
@@ -157,20 +136,21 @@ public class Lecteur {
     }    
     /**
      *
-     * @param i
+     * @param img
      * (Precondition :)
      * (Postcondition :)
      * @return
      */
-    public String P3toString(Image i){        
+    public String P3toString(Image img){        
         String str = "";
-        Pixel matrix [][] = i.getMatrice();
+        Pixel matrix [][] = img.getMatrice();
         
-        for (int k = 0; k<i.getDimX()*3;k++){
-            for (int j = 0; j<i.getDimY();j++){
+        for (int k = 0; k<img.getDimX();k++){
+            for (int j = 0; j<img.getDimY();j++){
                 str += String.valueOf(matrix[k][j]);
+                str+= " ";
             }
-        }
+        }      
         return str;
     }    
     /**
@@ -212,11 +192,6 @@ public class Lecteur {
         
         Image im2 = new Image();      
         File fichier2 = new File("Sherbrooke_Frontenac_nuit.ppm");
-        
-        if (fichier2.canRead())
-            System.out.printf("Ouvert");
-        else
-            System.out.printf("Fermer");
  
         w.read(im2, fichier2);
         
