@@ -53,6 +53,7 @@ public class Traiteur{
         }
         return null;
     }
+   
     
     /**
      * Réduit une image de moitée
@@ -104,9 +105,7 @@ public class Traiteur{
                              i.getMatrice()[2*j+1][2*k], i.getMatrice()[2*j+1][2*k+1]);
                 }    
             }
-        }
-        
-        
+        }    
         return new Image(x,y,i.getResol(),temp);
     }
     
@@ -133,6 +132,7 @@ public class Traiteur{
         }
         return false;
     }
+
     
     /**
      * Tourne une image de 90° anti-horaire
@@ -150,6 +150,7 @@ public class Traiteur{
         }
         return new Image(i.getDimX(),i.getDimY(),i.getResol(),temp); 
     }
+
     
     /**
      * Éclaircis ou noircis une image 
@@ -167,4 +168,5 @@ public class Traiteur{
         }
         return new Image(i.getDimX(), i.getDimY(), i.getResol(), temp); 
     }
+
 }
