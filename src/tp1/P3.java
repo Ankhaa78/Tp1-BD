@@ -43,19 +43,13 @@ public class P3 implements Pixel {
     public int getBlue() {
         return blue;
     }
-    
-    @Override
-    public void eclaircir(int valeur) {
-        red = VerifyPixel.verifyEclaircir(red, valeur);
-        green = VerifyPixel.verifyEclaircir(green, valeur);
-        blue = VerifyPixel.verifyEclaircir(blue, valeur);
-    }
 
     @Override
-    public void noircir(int valeur) {
-        red = VerifyPixel.verifyNoircir(red, valeur);
-        green = VerifyPixel.verifyNoircir(green, valeur);
-        blue = VerifyPixel.verifyNoircir(blue, valeur);
+    public Pixel eclaircir_noircir_pixel(int valeur, int resol) {
+        int r = Pixel.verifyPixel(red, valeur, resol);
+        int g = Pixel.verifyPixel(green, valeur, resol);
+        int b = Pixel.verifyPixel(blue, valeur, resol);
+        return new P3(r, g, b);
     }
     
     @Override
@@ -80,6 +74,7 @@ public class P3 implements Pixel {
         return new P3(r, b, g);
     }
 
+    @Override
     public String toString(){
         return this.getRed() + " " + this.getGreen() +" "+ this.getBlue();
     }
