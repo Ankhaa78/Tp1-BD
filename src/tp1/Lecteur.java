@@ -18,14 +18,28 @@ public class Lecteur {
     
     private final File fichier;
    
+    /**
+     *
+     * @param fichier
+     */
     public Lecteur(File fichier) {
         this.fichier = fichier;
     }
 
+    /**
+     *
+     * @param i
+     * @param f
+     */
     public void read(Image i, File f){
         
     }
     
+    /**
+     *
+     * @param f
+     * @param i
+     */
     public void write(File f, Image i){
         
     }
