@@ -14,6 +14,8 @@ public interface Pixel {
     public Pixel fusion(Pixel p1);
     public Pixel fusion(Pixel p1, Pixel p2, Pixel p3);
     
+   
+    
     public static int verifyPixel (int base, int valeur, int resol) {
         if ((base + valeur) <= 0) {
             return 0;

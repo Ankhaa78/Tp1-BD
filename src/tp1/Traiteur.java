@@ -147,7 +147,7 @@ public class Traiteur{
                 temp[j][k] = i.getMatrice()[k][ max - j];
             }
         }
-        return new Image(i.getDimX(),i.getDimY(),i.getResol(),temp); 
+        return new Image(i.getDimY(),i.getDimX(),i.getResol(),temp); 
     }
 
     
