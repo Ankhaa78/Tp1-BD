@@ -1,14 +1,15 @@
 package tp1;
 
 
+
 import java.io.File;
-=======
+
 import java.io.FileWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.BreakIterator;
->>>>>>> d37183b9ec954bfab4fef431dfce53357680656f
+
 import java.util.Scanner;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,7 +21,6 @@ import java.util.Scanner;
  *
  * @author joel_
  */
-public class Lecteur {
 public class Lecteur {     
     
     /**
@@ -36,7 +36,6 @@ public class Lecteur {
         Scanner sc = new Scanner(f);
         String pixelType;           
 
-    public void read(Image i, File f){
         pixelType = sc.nextLine();
         img.setDimX(sc.nextInt());
         img.setDimY(sc.nextInt());
@@ -63,8 +62,10 @@ public class Lecteur {
         sc.close();
     }
     
-    public void write(File f, Image i){
+
+     public void write(File f, Image img) throws IOException{  
      
+
     /**
      *
      * @param f - un fichier
@@ -73,7 +74,7 @@ public class Lecteur {
      * (Postcondition :)
      * @throws IOException
      */
-    public void write(File f, Image img) throws IOException{       
+         
         String txt = null;    
         String pixelType;
         
@@ -122,6 +123,7 @@ public class Lecteur {
             end = boundary.next();
         }
         fw.close(); 
+
     }
     
     /**

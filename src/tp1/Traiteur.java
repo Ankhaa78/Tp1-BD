@@ -51,7 +51,8 @@ public class Traiteur{
                 }
             return new Image(newDimX, newDimY, i.getResol(), temp);
         }
-
+        return null;
+    }
    
     
     /**
@@ -129,7 +130,7 @@ public class Traiteur{
             return true;
         }
         return false;
-
+    }
     
     
     /**
