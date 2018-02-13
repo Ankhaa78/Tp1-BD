@@ -26,7 +26,7 @@ public class Traiteur{
     
     /**
      *
-     * @param i 
+     * @param i
      * @param p1
      * @param c1
      * @param p2
@@ -51,9 +51,14 @@ public class Traiteur{
                 }
             return new Image(newDimX, newDimY, i.getResol(), temp);
         }
-        return null;
-    }
+
+   
     
+    /**
+     *
+     * @param i
+     * @return
+     */
     public Image reduce(Image i){
         int x,y;
         
@@ -99,9 +104,7 @@ public class Traiteur{
                              i.getMatrice()[2*j+1][2*k], i.getMatrice()[2*j+1][2*k+1]);
                 }    
             }
-        }
-        
-        
+        }    
         return new Image(x,y,i.getResol(),temp);
     }
     
@@ -109,6 +112,7 @@ public class Traiteur{
      *
      * @param i1
      * @param i2
+
      * @return
      */
     public boolean compare(Image i1, Image i2){
@@ -125,8 +129,14 @@ public class Traiteur{
             return true;
         }
         return false;
-    }
+
     
+    
+    /**
+     *
+     * @param i
+     * @return
+     */
     public Image rotate(Image i){
         int max = i.getDimX() - 1;
         Pixel [][] temp = new Pixel[i.getDimX()][i.getDimY()];
@@ -138,6 +148,7 @@ public class Traiteur{
         }
         return new Image(i.getDimX(),i.getDimY(),i.getResol(),temp); 
     }
+
     
        public Image eclaircir_noircir(Image i, int valeur)
     {
@@ -149,4 +160,5 @@ public class Traiteur{
         }
         return new Image(i.getDimX(), i.getDimY(), i.getResol(), temp); 
     }
+
 }
