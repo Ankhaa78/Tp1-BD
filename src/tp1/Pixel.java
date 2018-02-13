@@ -10,10 +10,19 @@ package tp1;
  * @author razan
  */
 public interface Pixel {
-    void eclaircir(int valeur);
-    void noircir(int valeur);
+    Pixel eclaircir_noircir_pixel(int valeur, int resol);
     public Pixel fusion(Pixel p1);
     public Pixel fusion(Pixel p1, Pixel p2, Pixel p3);
     
-
+    public static int verifyPixel (int base, int valeur, int resol) {
+        if ((base + valeur) <= 0) {
+            return 0;
+        }
+        else if ((base + valeur) >= resol) {
+            return resol;
+        } 
+        else {
+            return base += valeur;
+        }
+    }
 }
