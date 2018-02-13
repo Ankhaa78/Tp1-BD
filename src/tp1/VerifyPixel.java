@@ -18,9 +18,9 @@ public class VerifyPixel {
         }
     }
     
-    public static int verifyNoircir (int base, int valeur) {
-        if ((base + valeur) >= 255) {
-            return 255;
+    public static int verifyNoircir (int base, int valeur, int resol) {
+        if ((base + valeur) >= resol) {
+            return resol;
         } else {
             return base += valeur;
         }

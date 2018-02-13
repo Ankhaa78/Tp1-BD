@@ -10,7 +10,7 @@ package tp1;
  *
  * @author joel_
  */
-public class Traiteur {
+public class Traiteur{
     
     /**
      *
@@ -18,7 +18,10 @@ public class Traiteur {
      * @param i2
      */
     public void copy(Image i1, Image i2){
-        
+            i2.setMatrice(i1.getMatrice().clone());
+            i2.setResol(i1.getResol());
+            i2.setDimX(i1.getDimX());
+            i2.setDimY(i1.getDimY());
     }
     
     /**
@@ -29,11 +32,27 @@ public class Traiteur {
      * @param p2
      * @param c2
      * @return
+     * 
+     * Precondition = 
      */
     public Image extract(Image i, int p1, int c1, int p2, int c2){
-        
-        return null;
-    }
+        if(p1 < i.getDimX() && p2 < i.getDimX() && c1 < i.getDimY() && c2 < i.getDimY() && c1 < c2 && p1 < p2)
+        {
+            //On détermine les nouvelles 
+            int newDimX = p2 - p1;
+            int newDimY = c2 - c1;
+            //On crée un tableau temporaire
+            Pixel[][] temp = new Pixel[newDimX][newDimY];
+            //On copie la partie d'image dans le tableau temporaire 
+            for(int j = 0; j < newDimY; j++ )
+                for(int k = 0; k < newDimX; k++)
+                {
+                    temp[j][k] = i.getMatrice()[j + p1][k + c1];
+                }
+            return new Image(newDimX, newDimY, i.getResol(), temp);
+        }
+
+   
     
     /**
      *
@@ -93,11 +112,25 @@ public class Traiteur {
      *
      * @param i1
      * @param i2
+
+     * @return
      */
-    public void compare(Image i1, Image i2){
-        
-        
-    }
+    public boolean compare(Image i1, Image i2){
+        if(i1.getDimX() == i2.getDimX() && i1.getDimY() == i2.getDimY())
+        {
+            for(int i = 0; i < i1.getDimY(); i++)
+                for(int j = 0; j < i1.getDimX(); j++)
+                {
+                    if(i1.getMatrice()[i][j] != i2.getMatrice()[i][j])
+                    {
+                        return false;
+                    }
+                }
+            return true;
+        }
+        return false;
+
+    
     
     /**
      *
@@ -115,6 +148,17 @@ public class Traiteur {
         }
         return new Image(i.getDimX(),i.getDimY(),i.getResol(),temp); 
     }
- 
-   
+
+    
+       public Image eclaircir_noircir(Image i, int valeur)
+    {
+        Pixel[][] temp = new Pixel[i.getDimY()][i.getDimX()];
+        for (int j = 0; j < i.getDimX();j++){
+            for (int k = 0; k < i.getDimY(); k++){
+                temp[k][j] = i.getMatrice()[k][j].eclaircir_noircir_pixel(valeur, i.getResol());
+            }
+        }
+        return new Image(i.getDimX(), i.getDimY(), i.getResol(), temp); 
+    }
+
 }
