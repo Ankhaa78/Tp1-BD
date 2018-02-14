@@ -5,6 +5,9 @@
  */
 package tp1;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  *
  * @author mndus
@@ -18,9 +21,13 @@ public class TP1 {
         int dimX = 4;
         int dimY = 7;
         
+        
+        
         //Tests P2
         Pixel [][] m = new P2[dimY][dimX];
         Traiteur t = new Traiteur();
+        Lecteur l = new Lecteur();
+        
         int k =1;
         for(int i=0;i<dimY;i++){
             for(int j=0;j<dimX;j++){
@@ -28,15 +35,65 @@ public class TP1 {
                 k++;
             }
         }
+        File f= new File("Sherbrooke_Frontenac_nuit.ppm");
         
-        Image im = new Image(dimX, dimY, 255, m);
+        Image im = new Image();
+         
+        l.read(im, f);
+       
+//new Image(dimX, dimY, 255, m);
         Image im2 = t.rotate(im);
         Image im3 = t.reduce(im);
-        Image im4 = t.eclaircir_noircir(im, -5);
-        Image im5 = t.eclaircir_noircir(im, 12);
+        Image im4 = t.eclaircir_noircir(im, -25);
+        Image im5 = t.eclaircir_noircir(im, 25);
         Image im6 = new Image();
         t.copy(im, im6);
-        Image im7 = t.extract(im, 0, 0, 3, 3);
+        Image im7 = t.extract(im, 30,30,110,110);
+        
+        File test1 = new File ("intacte.ppm");
+        File test2 = new File ("rotate.ppm");
+        File test3 = new File ("reduce.ppm");
+        File test4 = new File ("noicir.ppm");
+        File test5 = new File ("eclaircir.ppm");
+        File test7 = new File ("extract.ppm");
+        
+           
+        l.write(test1, im);
+        l.write(test2, im2);
+        l.write(test3, im3);
+        l.write(test4, im4);
+        l.write(test5, im5);
+        l.write(test7, im7);
+        
+        f= new File("Sherbrooke_Frontenac_nuit.pgm");
+         
+        l.read(im, f);
+        
+        
+//new Image(dimX, dimY, 255, m);
+        im2 = t.rotate(im);
+        im3 = t.reduce(im);
+        im4 = t.eclaircir_noircir(im, -25);
+        im5 = t.eclaircir_noircir(im, 25);
+        im6 = new Image();
+        t.copy(im, im6);
+        im7 = t.extract(im, 30, 30, 110, 110);
+        
+        test1 = new File ("intacte.pgm");
+        test2 = new File ("rotate.pgm");
+        test3 = new File ("reduce.pgm");
+        test4 = new File ("noicir.pgm");
+        test5 = new File ("eclaircir.pgm");
+        test7 = new File ("extract.pgm");
+        
+            
+        l.write(test1, im);
+        l.write(test2, im2);
+        l.write(test3, im3);
+        l.write(test4, im4);
+        l.write(test5, im5);
+        l.write(test7, im7);
+
         
         System.out.println("Matrice originale");
         for(int i=0;i<dimY;i++){
@@ -193,6 +250,9 @@ public class TP1 {
             }
             System.out.println();
         }
+        
+        System.out.println("test de img.toString : ");
+        
     }
     
 }

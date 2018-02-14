@@ -1,202 +1,120 @@
-package tp1;
-
-import java.io.FileWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.BreakIterator;
-import java.util.Scanner;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package tp1;
 
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
+import java.text.BreakIterator;
+import java.util.Scanner;
 /**
- *
+ * Gère la lecture et l'écriture de fichier en chargant  et sauvegardant
+ * les données des images.
  * @author joel_
  */
-public class Lecteur {     
-    
-
+public class Lecteur {        
     /**
-     *
-     * @param img - une image
-     * @param f - un fichier
-     * (Precondition :)
-     * (Postcondition :)
-     * @throws java.io.FileNotFoundException
+     * Ouvre un fichier spécifié en paramètre puis
+     * charge les données dans l'image.
+     * @param img Une image
+     * @param f Un fichier 
+     * (Precondition : Avoir un fichier existant)
      */
-    public void read(Image img, File f) throws FileNotFoundException, IOException{        
-        Pixel [][] temp = null;
-        Scanner sc = new Scanner(f);
-        String pixelType;           
+    public void read(Image img, File f){               
+        try(Scanner sc = new Scanner(f)){           
+            String pixelType;           
+            
+            //Extrait les information sur l'image
+            pixelType = sc.nextLine();
+            img.setDimX(sc.nextInt());
+            img.setDimY(sc.nextInt());
+            img.setResol(sc.nextInt()); 
+            
+            Pixel [][]temp = new Pixel[img.getDimY()][img.getDimX()];
 
-        pixelType = sc.nextLine();
-        img.setDimX(sc.nextInt());
-        img.setDimY(sc.nextInt());
-        img.setResol(sc.nextInt());  
-        
-        if ("P3".equals(pixelType)){
-            temp = new P3 [img.getDimX()][img.getDimY()];
-            for (int x = 0; x < img.getDimX(); x++){
-                for (int y = 0; y < img.getDimY(); y++) {
-                    temp[x][y] = new P3(sc.nextInt(),sc.nextInt(),sc.nextInt());                    
-                }            
-            }     
-        }      
-        else if ("P2".equals(pixelType)){
-            temp = new P2 [img.getDimX()][img.getDimY()]; 
-            for (int x = 0; x < img.getDimX(); x++){
-                for (int y = 0; y < img.getDimY(); y++) {
-                    temp[x][y] = new P2(sc.nextInt());                    
-                }            
+            //Extrait chaque pixel de l'image selon son type
+            if ("P3".equals(pixelType)){
+                temp = new P3 [img.getDimY()][img.getDimX()];
+                for (int x = 0; x < img.getDimY(); x++){
+                    for (int y = 0; y < img.getDimX(); y++) {
+                        temp[x][y] = new P3(sc.nextInt(),sc.nextInt(),sc.nextInt());                    
+                    }            
+                }     
+            }      
+            else if ("P2".equals(pixelType)){
+               temp = new P2 [img.getDimY()][img.getDimX()]; 
+               for (int x = 0; x < img.getDimY(); x++){
+                    for (int y = 0; y < img.getDimX(); y++) {
+                        temp[x][y] = new P2(sc.nextInt());                    
+                    }            
+                }
             }
+            img.setMatrice(temp);
+            sc.close();
         }
-        
-        img.setMatrice(temp);
-        sc.close();
+        catch(IOException e){
+            System.out.println("Fichier introuvable");
+        }
     }
-    
     /**
-     *
-     * @param f - un fichier
-     * @param img - une image
-     * (Precondition :)
-     * (Postcondition :)
-     * @throws IOException
+     * Extrait les informations sur les pixels 
+     * d'une image, puis les retranscrit dans 
+     * le fichier envoyé en paramètre.
+     * @param f Un fichier
+     * @param img Une image
+     * (Precondition : Avoir fichier existant)
      */
-    public void write(File f, Image img) throws IOException{       
-        String txt = null;    
+    public void write(File f, Image img){     
+        String txt = img.toString();    
         String pixelType;
         
-        pixelType = img.getMatrice().getClass().getName();
-        pixelType = pixelType.substring(7, 9);
-        
-        if ("P2".equals(pixelType))
-            txt = P2toString(img);
-        else if("P3".equals(pixelType))
-            txt = P3toString(img);       
-        
-        FileWriter fw = new FileWriter(f.getAbsolutePath()) ;
-        BreakIterator boundary = BreakIterator.getLineInstance(); 
-        
-        boundary.setText(txt);             
-        int start = boundary.first();
-        int end = boundary.next();  
-        int lineLenght = 0; //Longueur de la ligne
-        int maxLenght = 70; //Longueur maximum  des lignes        
-        
-        String x = Integer.toString(img.getDimX());
-        String y = Integer.toString(img.getDimY());
-        String r = Integer.toString(img.getResol());
+        //Trouve le format
+        pixelType = img.getMatrice()[0][0].getClass().getName();
+        pixelType = pixelType.substring(pixelType.lastIndexOf(".")+1);
 
-        fw.write(pixelType);
-        fw.write ("\r\n");        
-        fw.write(x);
-        fw.write(" ");
-        fw.write(y);
-        fw.write ("\r\n");
-        fw.write(r);    
-        fw.write("\r\n");
+        try(FileWriter fw = new FileWriter(f.getAbsolutePath())){         
+            BreakIterator boundary = BreakIterator.getLineInstance(); 
+            boundary.setText(txt);             
+            int start = boundary.first();
+            int end = boundary.next();  
+            int lineLenght = 0; //Longueur de la ligne
+            int maxLenght = 70; //Longueur maximum  des lignes        
 
-        while (BreakIterator.DONE != end){
-            String word;           
-            word = txt.substring(start,end);
+            String x = Integer.toString(img.getDimX());
+            String y = Integer.toString(img.getDimY());
+            String r = Integer.toString(img.getResol());
+
+            fw.write(pixelType);
+            fw.write ("\r\n");        
+            fw.write(x);
+            fw.write(" ");
+            fw.write(y);
+            fw.write ("\r\n");
+            fw.write(r);    
+            fw.write("\r\n");
             
-            if ((lineLenght + word.length()) > maxLenght){             
-               fw.write("\r\n");        
-               lineLenght = word.length();
+            //Écrit les données  de chaque pixel dans l'image
+            while (BreakIterator.DONE != end){
+                String word;
+                word = txt.substring(start,end);
+                //Change de ligne si on atteint ou dépasse 
+                //le nombre caractère maximum
+                if ((lineLenght + word.length()) > maxLenght){             
+                   fw.write("\r\n");
+                   lineLenght = word.length();
+                }
+                fw.write(word);
+                lineLenght+= word.length();
+                start = end;
+                end = boundary.next();
             }
-            
-            fw.write(word);
-            lineLenght+= word.length();
-            start = end;
-            end = boundary.next();
+            fw.close(); 
         }
-        fw.close(); 
-    }
-    
-    /**
-     *
-     * @param img - une image
-     * (Precondition :)
-     * (Postcondition :)
-     * @return
-     */
-    public String P2toString(Image img){       
-        String str = "";
-        Pixel matrix [][] = img.getMatrice();
-        
-        for (int k = 0; k<img.getDimX();k++){
-            for (int j = 0; j<img.getDimY();j++){
-                str += String.valueOf(matrix[k][j]);
-            }
-        }
-        return str;
-    }    
-    /**
-     *
-     * @param img
-     * (Precondition :)
-     * (Postcondition :)
-     * @return
-     */
-    public String P3toString(Image img){        
-        String str = "";
-        Pixel matrix [][] = img.getMatrice();
-        
-        for (int k = 0; k<img.getDimX();k++){
-            for (int j = 0; j<img.getDimY();j++){
-                str += String.valueOf(matrix[k][j]);
-                str+= " ";
-            }
-        }      
-        return str;
-    }    
-    /**
-     *
-     * @param arg
-     * @throws IOException
-     */
-    public static void main (String arg[]) throws IOException{
-        int dimX = 20;
-        int dimY = 20;
-        Pixel [][] m = new P2[dimY][dimX];
-        Traiteur t = new Traiteur();
-        int k =1;
-        for(int i=0;i<dimY;i++){
-            for(int j=0;j<dimX;j++){
-                m[i][j] = new P2(k);
-                k++;
-            }
-        }
-        
-        Image im = new Image(dimX, dimY, 255, m);
-        
-        System.out.println("Matrice originale");
-        for(int i=0;i<dimY;i++){
-            for(int j=0;j<dimX;j++){
-                System.out.printf("%-3s", im.getMatrice()[i][j].toString());               
-            }
-            System.out.println();
-        }
-        Lecteur w = new Lecteur();
-        String test = w.P2toString(im);
-        System.out.printf(test);
-        System.out.println();
-        
-        File fichier;
-        fichier = new File ("test.txt");
-        w.write(fichier, im);       
-
-        
-        Image im2 = new Image();      
-        File fichier2 = new File("Sherbrooke_Frontenac_nuit.ppm");
- 
-        w.read(im2, fichier2);
-        
-        File fichier3 = new File ("test2.txt");
-        w.write(fichier3, im2);
+        catch(IOException e){
+            System.out.println("Écriture du fichier impossible");
+        }        
     }
 }

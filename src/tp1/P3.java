@@ -110,7 +110,7 @@ public class P3 implements Pixel {
         int g = (this.getGreen() + pix1.getGreen() + pix2.getGreen() + pix3.getGreen())/4;
         int b = (this.getBlue() + pix1. getBlue() + pix2. getBlue() + pix3. getBlue())/4;
         
-        return new P3(r, b, g);
+        return new P3(r, g, b);
     }
 
     /**
@@ -119,6 +119,6 @@ public class P3 implements Pixel {
      */
     @Override
     public String toString(){
-        return this.getRed() + " " + this.getGreen() +" "+ this.getBlue();
+        return this.getRed() + " " + this.getGreen() +" "+ this.getBlue() + " ";
     }
 }
